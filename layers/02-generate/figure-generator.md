@@ -8,7 +8,7 @@ Generate matplotlib or seaborn figures for PI research papers. It handles variou
 
 # Input
 - Figure description
-- Data source (CSV, JSON, or NPY files defined in pi-project.json paths)
+- Data source (CSV, JSON, or NPY files — user-provided path)
 - Figure type (bar, training-curve, heatmap, ablation, line, scatter, radar, violin, tsne, attention)
 
 # Output

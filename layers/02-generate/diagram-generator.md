@@ -7,7 +7,7 @@ description: Generates and renders UML/ERD diagrams for PI BAB 3 from source cod
 Automates the creation of technical diagrams required for the "Perancangan" section of BAB 3 by analyzing the project's source code.
 
 # Input
-- `source_path`: Path to source code (from `pi-project.json` `paths.source_code`)
+- `source_path`: Path to source code (user-provided or from semester.json course paths)
 - `diagram_type`: ERD, Use Case, Activity, Sequence, or Class
 - `output_dir`: Path for rendered images
 
@@ -46,4 +46,4 @@ Generates the corresponding LaTeX code to include the rendered image:
 # Integration Points
 - **Figure Generation Skill**: Bridges to `skills/figure-generation`.
 - **Draft Generator**: Injects the generated `\includegraphics` blocks into BAB 3 `.tex` files.
-- **Source Code**: Direct dependency on the path defined in `pi-project.json`.
+- **Source Code**: Direct dependency on the path provided by user or from semester.json.

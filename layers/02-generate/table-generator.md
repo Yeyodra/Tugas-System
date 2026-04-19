@@ -8,7 +8,7 @@ Convert experimental results and literature data into booktabs-styled LaTeX tabl
 
 # Input
 - Table type (comparison, ablation, descriptive, literature, custom)
-- Data source (JSON/CSV from pi-project.json paths or inline data)
+- Data source (JSON/CSV — user-provided path or inline data)
 
 # Output
 - LaTeX table code utilizing booktabs, multirow, multicol, and threeparttable packages.
