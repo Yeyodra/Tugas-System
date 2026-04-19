@@ -1,0 +1,66 @@
+# =============================================================================
+# analisis-jurnal.yaml — Default template: Analisis Jurnal Ilmiah
+# Tugas System | Universitas Gunadarma
+# =============================================================================
+
+task_type: "analisis-jurnal"
+display_name: "Analisis Jurnal"
+description: "Cari jurnal ilmiah, analisis latar belakang/metode/pembahasan, buat laporan"
+category: "matkul"
+
+# --- Sections ----------------------------------------------------------------
+sections:
+  - name: "Identitas Jurnal"
+    type: "auto"
+    description: "Metadata jurnal (judul, penulis, jurnal, DOI)"
+
+  - name: "Analisis Latar Belakang"
+    type: "generate"
+    prompt_hint: "Analisis latar belakang dan motivasi penelitian dari jurnal"
+
+  - name: "Analisis Metode"
+    type: "generate"
+    prompt_hint: "Analisis metode penelitian yang digunakan dalam jurnal"
+
+  - name: "Analisis Pembahasan dan Hasil"
+    type: "generate"
+    prompt_hint: "Analisis pembahasan dan hasil penelitian dari jurnal"
+
+  - name: "Kesimpulan Analisis"
+    type: "generate"
+    prompt_hint: "Kesimpulan dari analisis jurnal secara keseluruhan"
+
+  - name: "Daftar Pustaka"
+    type: "auto"
+
+# --- Format ------------------------------------------------------------------
+format:
+  output: "latex"
+  document_class: "gunadarma-tugas"
+  has_cover: true
+  cover_elements: ["title", "logo", "name_npm", "university", "year"]
+  font: "Times New Roman"
+  font_size: 12
+  line_spacing: 1.5
+  margins: { top: 3, bottom: 3, left: 3, right: 3 }
+
+# --- Generation --------------------------------------------------------------
+generation:
+  pre_steps:
+    - type: "search_journal"
+      criteria:
+        max_age_years: 5
+        open_access_preferred: true
+  needs_paraphrase: true
+  language: "id"
+
+# --- Quality -----------------------------------------------------------------
+quality:
+  check_format: true
+  check_ai_pattern: true
+  check_plagiarism: false
+
+# --- Naming ------------------------------------------------------------------
+naming:
+  file_pattern: "Analisis_Jurnal_{Course}_{Name}"
+  subfolder_pattern: "Analisis Jurnal"

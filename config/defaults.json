@@ -1,0 +1,35 @@
+{
+  "system": {
+    "name": "Tugas System",
+    "version": "1.0.0",
+    "description": "Asisten AI untuk tugas kuliah sehari-hari"
+  },
+  "user": {
+    "nama": "Nazril Bintang Pratama",
+    "npm": "51423096",
+    "kelas": "3IA21"
+  },
+  "university": {
+    "name": "Universitas Gunadarma",
+    "faculty": "Teknologi Industri",
+    "program": "Informatika"
+  },
+  "paths": {
+    "semester_config": "config/semester.json",
+    "task_types_default": "templates/task-types/_defaults",
+    "task_types_custom": "templates/task-types/custom",
+    "latex_templates": "templates/latex",
+    "logo": "templates/latex/logo-gunadarma.png"
+  },
+  "output": {
+    "default_format": "latex",
+    "compiler": "pdflatex",
+    "backup": {
+      "enabled": true,
+      "max_backups_per_file": 5
+    }
+  },
+  "tools": {
+    "laporan_praktikum_skill": "laporan-praktikum"
+  }
+}

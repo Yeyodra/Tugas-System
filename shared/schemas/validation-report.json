@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Validation Report",
+  "description": "Schema for data produced by Layer 04 (Quality) validators",
+  "type": "object",
+  "required": ["validator", "status", "checks", "summary"],
+  "properties": {
+    "validator": {
+      "type": "string",
+      "enum": ["format-validator", "citation-checker", "consistency-checker", "plagiarism-guard", "coherence-validator", "ai-self-audit"],
+      "description": "Which validator produced this report"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pass", "fail", "warning"],
+      "description": "Overall validation status"
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["rule", "status", "severity"],
+        "properties": {
+          "rule": { "type": "string", "description": "Rule identifier (e.g., FORMAT_MARGIN_TOP)" },
+          "description": { "type": "string", "description": "Human-readable rule description" },
+          "status": { "type": "string", "enum": ["pass", "fail", "warning", "skipped"] },
+          "severity": { "type": "string", "enum": ["critical", "warning", "info"] },
+          "location": {
+            "type": "object",
+            "properties": {
+              "chapter": { "type": "integer" },
+              "section": { "type": "string" },
+              "line": { "type": "integer" },
+              "page": { "type": "integer" }
+            },
+            "description": "Where the violation was found"
+          },
+          "expected": { "type": "string", "description": "What was expected" },
+          "actual": { "type": "string", "description": "What was found" },
+          "suggestion": { "type": "string", "description": "How to fix the violation" }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "properties": {
+        "total_checks": { "type": "integer" },
+        "passed": { "type": "integer" },
+        "failed": { "type": "integer" },
+        "warnings": { "type": "integer" },
+        "critical_failures": { "type": "integer" },
+        "pass_rate": { "type": "number", "description": "Percentage of checks passed (0-100)" }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "validated_at": { "type": "string", "format": "date-time" },
+        "chapter_validated": { "type": "integer" },
+        "input_file": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "semester": "S6",
+  "tahun_ajaran": "2025/2026 Genap",
+  "kelas": "3IA21",
+  "base_path": "C:\\Users\\Hanni\\Documents\\Kampus\\S6",
+  "courses": {
+    "lab": {
+      "PC": {
+        "full_name": "Pengolahan Citra",
+        "path": "LAB/PC"
+      },
+      "SBD2": {
+        "full_name": "Sistem Basis Data 2",
+        "path": "LAB/SBD2"
+      },
+      "TBO": {
+        "full_name": "Teori Bahasa dan Otomata",
+        "path": "LAB/TBO"
+      },
+      "PTTG": {
+        "full_name": "Praktikum Terapan Teori Graf",
+        "path": "LAB/PTTG"
+      }
+    },
+    "matkul": {
+      "PC": {
+        "full_name": "Pengolahan Citra",
+        "path": "MATKUL/Pengolahan Citra"
+      },
+      "REKOM": {
+        "full_name": "Rekayasa Komputasional",
+        "path": "MATKUL/Rekayasa Komputasional"
+      },
+      "SBD2": {
+        "full_name": "Sistem Basis Data 2",
+        "path": "MATKUL/Sistem Basis Data 2"
+      },
+      "TBO": {
+        "full_name": "Teori Bahasa dan Otomata",
+        "path": "MATKUL/Teori Bahasa dan Otomata"
+      },
+      "KDM": {
+        "full_name": "Konsep Data Mining",
+        "path": "MATKUL/Konsep Data Mining"
+      },
+      "RPL1": {
+        "full_name": "Rekayasa Perangkat Lunak 1",
+        "path": "MATKUL/Rekayasa Perangkat Lunak 1"
+      },
+      "TTG": {
+        "full_name": "Terapan Teori Graf",
+        "path": "MATKUL/Terapan Teori Graf"
+      }
+    }
+  }
+}

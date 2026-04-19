@@ -1,0 +1,79 @@
+# =============================================================================
+# makalah.yaml — Default template: Makalah Akademik
+# Tugas System | Universitas Gunadarma
+# =============================================================================
+
+task_type: "makalah"
+display_name: "Makalah"
+description: "Buat makalah akademik dengan struktur formal: pendahuluan, tinjauan pustaka, pembahasan, penutup"
+category: "matkul"
+
+# --- Sections ----------------------------------------------------------------
+sections:
+  - name: "Pendahuluan"
+    type: "group"
+    children:
+      - name: "Latar Belakang"
+        type: "generate"
+        prompt_hint: "Tulis latar belakang masalah sesuai topik makalah"
+      - name: "Rumusan Masalah"
+        type: "generate"
+        prompt_hint: "Rumuskan 2-3 pertanyaan penelitian dari latar belakang"
+      - name: "Tujuan"
+        type: "generate"
+        prompt_hint: "Tulis tujuan penulisan makalah berdasarkan rumusan masalah"
+
+  - name: "Tinjauan Pustaka"
+    type: "generate"
+    prompt_hint: "Tulis tinjauan pustaka dari referensi yang ditemukan, parafrase setiap sumber"
+
+  - name: "Pembahasan"
+    type: "generate"
+    prompt_hint: "Tulis pembahasan mendalam sesuai topik, hubungkan dengan tinjauan pustaka"
+
+  - name: "Penutup"
+    type: "group"
+    children:
+      - name: "Kesimpulan"
+        type: "generate"
+        prompt_hint: "Tulis kesimpulan yang menjawab rumusan masalah"
+      - name: "Saran"
+        type: "generate"
+        prompt_hint: "Tulis saran untuk pengembangan lebih lanjut"
+
+  - name: "Daftar Pustaka"
+    type: "auto"
+
+# --- Format ------------------------------------------------------------------
+format:
+  output: "latex"
+  document_class: "gunadarma-tugas"
+  has_cover: true
+  cover_elements: ["title", "logo", "name_npm", "course", "university", "year"]
+  font: "Times New Roman"
+  font_size: 12
+  line_spacing: 1.5
+  margins: { top: 3, bottom: 3, left: 3, right: 3 }
+
+# --- Generation --------------------------------------------------------------
+generation:
+  pre_steps:
+    - type: "search_references"
+      criteria:
+        min_refs: 5
+        max_refs: 15
+        max_age_years: 10
+        prefer_journal: true
+  needs_paraphrase: true
+  language: "id"
+
+# --- Quality -----------------------------------------------------------------
+quality:
+  check_format: true
+  check_ai_pattern: true
+  check_plagiarism: false
+
+# --- Naming ------------------------------------------------------------------
+naming:
+  file_pattern: "Makalah_{Course}_{Topic}_{Name}"
+  subfolder_pattern: "Makalah"

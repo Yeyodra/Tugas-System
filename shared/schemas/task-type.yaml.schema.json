@@ -1,0 +1,378 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://tugas-system.local/schemas/task-type.yaml.schema.json",
+  "title": "Tugas System — Task Type Template Schema",
+  "description": "JSON Schema for validating task-type YAML template files used by Tugas System. Each YAML defines the structure, generation rules, and output format for a specific type of university assignment.",
+  "type": "object",
+  "required": [
+    "task_type",
+    "display_name",
+    "description",
+    "category",
+    "sections",
+    "format",
+    "naming"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "task_type": {
+      "type": "string",
+      "description": "Unique identifier for this task type. Used as filename and internal reference. Must be kebab-case.",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "examples": ["analisis-jurnal", "makalah", "resume-materi", "studi-kasus", "tugas-coding"]
+    },
+    "display_name": {
+      "type": "string",
+      "description": "Human-readable name shown in menus and headers.",
+      "minLength": 1,
+      "examples": ["Analisis Jurnal", "Makalah", "Resume Materi"]
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description of what this task type produces.",
+      "minLength": 1
+    },
+    "category": {
+      "type": "string",
+      "description": "Category determines output path logic and available features.",
+      "enum": ["matkul", "lab", "custom"]
+    },
+    "applicable_courses": {
+      "type": "array",
+      "description": "List of course abbreviations this template applies to. Empty array or omitted means applicable to all courses.",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "sections": {
+      "type": "array",
+      "description": "Ordered list of document sections. Each section defines a part of the output document.",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/section"
+      }
+    },
+    "format": {
+      "$ref": "#/definitions/format"
+    },
+    "generation": {
+      "$ref": "#/definitions/generation"
+    },
+    "quality": {
+      "$ref": "#/definitions/quality"
+    },
+    "naming": {
+      "$ref": "#/definitions/naming"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Optional metadata about this template.",
+      "properties": {
+        "author": {
+          "type": "string",
+          "description": "Who created this template."
+        },
+        "version": {
+          "type": "string",
+          "description": "Template version.",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date",
+          "description": "Date this template was created."
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date",
+          "description": "Date this template was last updated."
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Tags for searchability."
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "definitions": {
+    "section": {
+      "type": "object",
+      "description": "A single section of the output document.",
+      "required": ["name", "type"],
+      "additionalProperties": true,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Section heading/title as it appears in the document.",
+          "minLength": 1,
+          "examples": ["Pendahuluan", "Pembahasan", "Kesimpulan", "Daftar Pustaka", "Listing Kode"]
+        },
+        "type": {
+          "type": "string",
+          "description": "How this section's content is produced.",
+          "enum": ["auto", "generate", "user_input", "code_listing"],
+          "x-enum-descriptions": {
+            "auto": "System fills automatically (e.g., cover page, table of contents, bibliography).",
+            "generate": "AI generates content based on prompt_hint and context.",
+            "user_input": "User provides the content directly (system prompts for it).",
+            "code_listing": "Code file(s) are included as formatted listings."
+          }
+        },
+        "description": {
+          "type": "string",
+          "description": "Internal description of what this section should contain. Not shown in output."
+        },
+        "prompt_hint": {
+          "type": "string",
+          "description": "Hint/instruction for AI generation. Used when type is 'generate'. Should describe the expected content, tone, and scope.",
+          "examples": [
+            "Tulis pendahuluan yang menjelaskan latar belakang topik dan tujuan analisis.",
+            "Buat pembahasan kritis terhadap metodologi dan hasil jurnal.",
+            "Rangkum kesimpulan utama dan berikan saran untuk penelitian selanjutnya."
+          ]
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Whether this section is mandatory. Defaults to true.",
+          "default": true
+        },
+        "order": {
+          "type": "integer",
+          "description": "Explicit ordering override. If omitted, array order is used.",
+          "minimum": 0
+        },
+        "subsections": {
+          "type": "array",
+          "description": "Nested subsections within this section.",
+          "items": {
+            "$ref": "#/definitions/section"
+          }
+        },
+        "word_count": {
+          "type": "object",
+          "description": "Word count constraints for this section.",
+          "properties": {
+            "min": { "type": "integer", "minimum": 0 },
+            "max": { "type": "integer", "minimum": 0 },
+            "target": { "type": "integer", "minimum": 0 }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "format": {
+      "type": "object",
+      "description": "Document formatting and output configuration.",
+      "required": ["output"],
+      "additionalProperties": true,
+      "properties": {
+        "output": {
+          "type": "string",
+          "description": "Primary output format.",
+          "enum": ["latex", "docx", "markdown", "pptx"],
+          "default": "latex"
+        },
+        "document_class": {
+          "type": "string",
+          "description": "LaTeX document class. Only relevant when output is 'latex'.",
+          "default": "article",
+          "examples": ["article", "report", "book"]
+        },
+        "has_cover": {
+          "type": "boolean",
+          "description": "Whether the document includes a cover/title page.",
+          "default": true
+        },
+        "cover_elements": {
+          "type": "array",
+          "description": "Elements to include on the cover page.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "logo",
+              "university_name",
+              "faculty",
+              "program",
+              "title",
+              "subtitle",
+              "course_name",
+              "student_name",
+              "npm",
+              "class",
+              "lecturer",
+              "date",
+              "semester"
+            ]
+          },
+          "default": [
+            "logo",
+            "university_name",
+            "title",
+            "course_name",
+            "student_name",
+            "npm",
+            "class",
+            "date"
+          ]
+        },
+        "font": {
+          "type": "string",
+          "description": "Font family for the document.",
+          "default": "Times New Roman",
+          "examples": ["Times New Roman", "Arial", "Calibri", "Computer Modern"]
+        },
+        "font_size": {
+          "type": "string",
+          "description": "Base font size.",
+          "default": "12pt",
+          "pattern": "^\\d+(pt|px|em)$"
+        },
+        "line_spacing": {
+          "type": "number",
+          "description": "Line spacing multiplier.",
+          "default": 1.5,
+          "minimum": 1.0,
+          "maximum": 3.0
+        },
+        "margins": {
+          "type": "object",
+          "description": "Page margins.",
+          "properties": {
+            "top": { "type": "string", "default": "3cm" },
+            "bottom": { "type": "string", "default": "3cm" },
+            "left": { "type": "string", "default": "4cm" },
+            "right": { "type": "string", "default": "3cm" }
+          },
+          "additionalProperties": false
+        },
+        "page_numbering": {
+          "type": "boolean",
+          "description": "Whether to include page numbers.",
+          "default": true
+        },
+        "bibliography_style": {
+          "type": "string",
+          "description": "Citation/bibliography style.",
+          "default": "apa",
+          "examples": ["apa", "ieee", "chicago", "vancouver"]
+        }
+      }
+    },
+    "generation": {
+      "type": "object",
+      "description": "AI content generation settings.",
+      "additionalProperties": true,
+      "properties": {
+        "pre_steps": {
+          "type": "array",
+          "description": "Steps to execute before content generation. Each step is a string describing an action.",
+          "items": {
+            "type": "string"
+          },
+          "examples": [
+            ["Cari jurnal terkait topik", "Baca dan analisis jurnal", "Buat outline"],
+            ["Baca materi kuliah", "Identifikasi poin utama"]
+          ]
+        },
+        "needs_paraphrase": {
+          "type": "boolean",
+          "description": "Whether generated content should be paraphrased to reduce AI patterns.",
+          "default": false
+        },
+        "language": {
+          "type": "string",
+          "description": "Primary language for content generation.",
+          "default": "id",
+          "enum": ["id", "en", "mixed"]
+        },
+        "tone": {
+          "type": "string",
+          "description": "Writing tone/style.",
+          "default": "academic",
+          "examples": ["academic", "formal", "semi-formal", "technical"]
+        },
+        "reference_count": {
+          "type": "object",
+          "description": "Expected number of references/citations.",
+          "properties": {
+            "min": { "type": "integer", "minimum": 0 },
+            "max": { "type": "integer", "minimum": 0 }
+          },
+          "additionalProperties": false
+        },
+        "ai_instructions": {
+          "type": "string",
+          "description": "Additional free-form instructions for the AI generator."
+        }
+      }
+    },
+    "quality": {
+      "type": "object",
+      "description": "Quality assurance checks to run on the output.",
+      "additionalProperties": true,
+      "properties": {
+        "check_format": {
+          "type": "boolean",
+          "description": "Run format compliance checker (margins, font, spacing, etc.).",
+          "default": true
+        },
+        "check_ai_pattern": {
+          "type": "boolean",
+          "description": "Run AI-pattern detection to flag overly AI-sounding text.",
+          "default": true
+        },
+        "check_plagiarism": {
+          "type": "boolean",
+          "description": "Run plagiarism similarity check.",
+          "default": false
+        },
+        "custom_checks": {
+          "type": "array",
+          "description": "Additional custom quality checks.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "description": { "type": "string" },
+              "severity": {
+                "type": "string",
+                "enum": ["error", "warning", "info"]
+              }
+            },
+            "required": ["name"],
+            "additionalProperties": true
+          }
+        }
+      }
+    },
+    "naming": {
+      "type": "object",
+      "description": "File and folder naming conventions for output.",
+      "required": ["file_pattern"],
+      "additionalProperties": true,
+      "properties": {
+        "file_pattern": {
+          "type": "string",
+          "description": "Pattern for the output filename. Supports placeholders: {task_type}, {course}, {course_full}, {student_name}, {npm}, {date}, {N}, {title}.",
+          "examples": [
+            "{task_type}_{course}_{npm}",
+            "LA_{course}_M{N}_{npm}",
+            "{course}_{task_type}_{date}"
+          ]
+        },
+        "subfolder_pattern": {
+          "type": "string",
+          "description": "Pattern for the output subfolder name. Supports same placeholders as file_pattern.",
+          "examples": [
+            "Analisis Jurnal {N}",
+            "Makalah - {title}",
+            "{task_type} {N}"
+          ]
+        }
+      }
+    }
+  }
+}

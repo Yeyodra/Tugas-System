@@ -1,0 +1,48 @@
+# =============================================================================
+# resume.yaml — Default template: Resume / Ringkasan Materi
+# Tugas System | Universitas Gunadarma
+# =============================================================================
+
+task_type: "resume"
+display_name: "Resume"
+description: "Buat ringkasan materi 1-2 halaman, format simpel tanpa struktur formal"
+category: "matkul"
+
+# --- Sections ----------------------------------------------------------------
+sections:
+  - name: "Header"
+    type: "auto"
+    description: "Nama, NPM, mata kuliah, topik (inline, bukan cover page)"
+
+  - name: "Konten"
+    type: "generate"
+    prompt_hint: "Tulis ringkasan materi secara padat dan jelas, maksimal 2 halaman"
+
+# --- Format ------------------------------------------------------------------
+format:
+  output: "latex"
+  document_class: "gunadarma-tugas"
+  has_cover: false
+  header_style: "inline"  # simple header, not a full cover page
+  font: "Times New Roman"
+  font_size: 12
+  line_spacing: 1.5
+  margins: { top: 3, bottom: 3, left: 3, right: 3 }
+  max_pages: 2
+
+# --- Generation --------------------------------------------------------------
+generation:
+  pre_steps: []  # no reference search needed
+  needs_paraphrase: true
+  language: "id"
+
+# --- Quality -----------------------------------------------------------------
+quality:
+  check_format: true
+  check_ai_pattern: true
+  check_plagiarism: false
+
+# --- Naming ------------------------------------------------------------------
+naming:
+  file_pattern: "Resume_{Course}_{Topic}_{Name}"
+  subfolder_pattern: "Resume"

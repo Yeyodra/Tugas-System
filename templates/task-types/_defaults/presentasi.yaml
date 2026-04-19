@@ -1,0 +1,68 @@
+# =============================================================================
+# presentasi.yaml — Default template: Presentasi (Slide)
+# Tugas System | Universitas Gunadarma
+# =============================================================================
+
+task_type: "presentasi"
+display_name: "Presentasi"
+description: "Buat slide presentasi dari topik atau dokumen yang sudah ada"
+category: "matkul"
+
+# --- Sections ----------------------------------------------------------------
+sections:
+  - name: "Cover Slide"
+    type: "auto"
+    description: "Judul, nama, NPM, mata kuliah, logo"
+
+  - name: "Outline"
+    type: "auto"
+    description: "Daftar isi presentasi"
+
+  - name: "Konten"
+    type: "generate"
+    prompt_hint: "Buat konten slide berdasarkan topik atau dokumen sumber"
+    source: "from_topic"  # or "from_document"
+
+  - name: "Kesimpulan"
+    type: "generate"
+    prompt_hint: "Slide kesimpulan dari keseluruhan presentasi"
+
+  - name: "Daftar Pustaka"
+    type: "auto"
+    description: "Slide referensi (jika ada sumber)"
+
+  - name: "Thank You"
+    type: "auto"
+    description: "Slide penutup"
+
+# --- Format ------------------------------------------------------------------
+format:
+  output: "pptx"
+  has_cover: false  # cover is a slide, not a separate page
+  slide_theme: "clean-academic"
+  font: "Calibri"
+  title_font_size: 28
+  body_font_size: 18
+  max_bullets_per_slide: 5
+  max_words_per_bullet: 15
+  include_speaker_notes: true
+
+# --- Generation --------------------------------------------------------------
+generation:
+  pre_steps: []  # no pre-search needed for slides
+  source_options:
+    - "from_topic"      # generate from scratch based on topic
+    - "from_document"   # extract key points from existing document
+  needs_paraphrase: false
+  language: "id"
+
+# --- Quality -----------------------------------------------------------------
+quality:
+  check_format: true
+  check_ai_pattern: false
+  check_plagiarism: false
+
+# --- Naming ------------------------------------------------------------------
+naming:
+  file_pattern: "Presentasi_{Course}_{Topic}_{Name}"
+  subfolder_pattern: "Presentasi"
