@@ -30,6 +30,7 @@
     }
   },
   "tools": {
-    "laporan_praktikum_skill": "laporan-praktikum"
+    "laporan_praktikum": "layers/02-generate/laporan-praktikum.md",
+    "laporan_praktikum_cls": "templates/latex/gunadarma-la.cls"
   }
 }

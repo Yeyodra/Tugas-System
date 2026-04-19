@@ -79,7 +79,7 @@ User picks "1" or says "buat tugas"
 
 ```
 User picks "2" or says "buat LA"
-  → Delegate to external skill: `laporan-praktikum`
+  → Dispatch to embedded layer: `layers/02-generate/laporan-praktikum.md`
   → Pass context: { course, modul_number, base_path }
   → This skill is NOT part of Tugas System — it's a separate OpenCode skill
 ```
@@ -250,7 +250,7 @@ Central routing table mapping tasks to layer files and categories.
 | ID | Task | Layer File | Category | Notes |
 |----|------|-----------|----------|-------|
 | `tugas-pipeline` | Full tugas generation | `pipelines/tugas-pipeline.md` | pipeline | Main pipeline for Menu 1 |
-| `laporan-akhir` | Laporan Akhir praktikum | External skill: `laporan-praktikum` | external | Menu 2 — separate skill |
+| `laporan-akhir` | Laporan Akhir praktikum | `layers/02-generate/laporan-praktikum.md` | `writing` | Menu 2 — embedded layer |
 | `pptx-gen` | Generate PPTX slides | `layers/04-output/pptx-generator.md` | output | Menu 3 |
 | `paraphrase` | Paraphrase text | `layers/02-generate/paraphraser.md` | generate | Menu 4 |
 | `ref-search` | Search references/journals | `layers/01-knowledge/reference-finder.md` | knowledge | Menu 5 |
@@ -335,5 +335,5 @@ shared/schemas/task-type.yaml.schema.json
 - This system handles **regular coursework** (tugas, presentasi, laporan).
 - This system does **NOT** handle Penelitian Ilmiah (PI/skripsi) — that's the PI System.
 - This system does **NOT** load or reference `pi-project.json`.
-- Laporan Akhir (LA) is delegated to the external `laporan-praktikum` skill.
+- Laporan Akhir (LA) is handled by embedded layer `layers/02-generate/laporan-praktikum.md`. Template cls at `templates/latex/gunadarma-la.cls`.
 - All content generation is **template-driven** — no hardcoded assignment content.
