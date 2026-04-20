@@ -1,0 +1,14 @@
+- **Tugas System Auto-Detection:** When user mentions "tugas", "buat tugas", "kerjain tugas", "analisis jurnal", "buat makalah", "buat presentasi", "buat resume", "buat LA", "laporan akhir", "laporan praktikum", or any university assignment context:
+  1. IMMEDIATELY read the orchestrator at `C:\Users\Hanni\Documents\Projek\Tugas-System\SKILL.md`
+  2. Read semester config at `C:\Users\Hanni\Documents\Projek\Tugas-System\config\semester.json`
+  3. This file contains: semester (S6), kelas (3IA21), all courses (lab + matkul) with paths
+  4. Assignment output goes to: `C:\Users\Hanni\Documents\Kampus\S6\` (LAB/ or MATKUL/ subfolders)
+  5. Task-type YAML templates are at `C:\Users\Hanni\Documents\Projek\Tugas-System\templates\task-types\`
+  6. Default templates: analisis-jurnal, makalah, presentasi, resume (in `_defaults/`)
+  7. Custom templates created by user are in `custom/`
+  8. LaTeX class for tugas: `C:\Users\Hanni\Documents\Projek\Tugas-System\templates\latex\gunadarma-tugas.cls`
+  9. For LA (Laporan Akhir/Praktikum): use embedded layer `layers/02-generate/laporan-praktikum.md` — cls at `templates/latex/gunadarma-la.cls`
+  10. Auto-detect course from context: "tugas PC" → Pengolahan Citra, "tugas KDM" → Konsep Data Mining, etc.
+  11. Auto-detect task type: "analisis jurnal" → analisis-jurnal.yaml, "makalah" → makalah.yaml, etc.
+  12. If task type not found in templates, trigger template-creator to build new YAML from user description
+  13. DO NOT respond with generic chat — always load semester context first, then route to correct task type

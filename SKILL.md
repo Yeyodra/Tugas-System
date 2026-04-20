@@ -337,3 +337,7 @@ shared/schemas/task-type.yaml.schema.json
 - This system does **NOT** load or reference `pi-project.json`.
 - Laporan Akhir (LA) is handled by embedded layer `layers/02-generate/laporan-praktikum.md`. Template cls at `templates/latex/gunadarma-la.cls`.
 - All content generation is **template-driven** — no hardcoded assignment content.
+
+## AGENTS.md Sync
+
+If you update triggers, paths, or features in this system, also update `AGENTS.md.snippet` at the repo root and run the sync procedure described in `scripts/sync-agents.md` to update the global AGENTS.md at `C:\Users\Hanni\.config\opencode\AGENTS.md`.
