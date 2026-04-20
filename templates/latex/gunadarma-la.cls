@@ -75,21 +75,23 @@
 %% Header page command
 \newcommand{\halamanHeader}{
 	\begin{center}
-		{\fontsize{14}{16}\bfseries LAPORAN AKHIR PRAKTIKUM}
+		{\fontsize{14}{18}\bfseries LAPORAN AKHIR PRAKTIKUM}
 		\vspace{1cm}
 	\end{center}
 
 	\noindent
+	\fontsize{14}{21}\selectfont  % 14pt font, 1.5 line spacing (14 * 1.5 = 21)
 	\begin{tabular}{@{}p{4cm}p{0.5cm}p{10cm}@{}}
-		\textbf{Nama} & \textbf{:} & \textbf{\@nama} \\
-		\textbf{Kelas} & \textbf{:} & \textbf{\@kelas} \\
-		\textbf{Mata Kuliah} & \textbf{:} & \textbf{\@matakuliah} \\
-		\textbf{Praktikum ke} & \textbf{:} & \textbf{\@praktikumke} \\
-		\textbf{Tanggal} & \textbf{:} & \textbf{\@tanggal} \\
-		\textbf{Materi} & \textbf{:} & \textbf{\@materi} \\
-		\textbf{NPM} & \textbf{:} & \textbf{\@npm} \\
+		\textbf{Nama} & \textbf{:} & \textbf{\@nama} \\[6pt]
+		\textbf{Kelas} & \textbf{:} & \textbf{\@kelas} \\[6pt]
+		\textbf{Mata Kuliah} & \textbf{:} & \textbf{\@matakuliah} \\[6pt]
+		\textbf{Praktikum ke} & \textbf{:} & \textbf{\@praktikumke} \\[6pt]
+		\textbf{Tanggal} & \textbf{:} & \textbf{\@tanggal} \\[6pt]
+		\textbf{Materi} & \textbf{:} & \textbf{\@materi} \\[6pt]
+		\textbf{NPM} & \textbf{:} & \textbf{\@npm} \\[6pt]
 		\textbf{Ketua Asisten} & \textbf{:} & \textbf{\@ketuaasisten} \\
 	\end{tabular}
+	\normalsize\normalfont  % reset font size
 
 	\vfill
 
@@ -98,9 +100,11 @@
 		
 		\vspace{0.5cm}
 		
+		{\fontsize{14}{21}\selectfont
 		\textbf{LABORATORIUM INFORMATIKA}\\
 		\textbf{UNIVERSITAS GUNADARMA}\\
 		\textbf{\@tahun}
+		}
 	\end{center}
 
 	\newpage
